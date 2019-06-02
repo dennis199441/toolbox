@@ -1,0 +1,13 @@
+runtime: python37
+
+service: community-service
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  USER_SERVICE_SQL_INSTANCE: 'talentexchange-236807:asia-east2:talent-community-db-dev'
+  USER_SERVICE_DB_NAME: 'community_service'
+  USER_SERVICE_DB_USER: 'talentAdmin'
+  USER_SERVICE_DB_PASSWORD: 'Abcd1234'
