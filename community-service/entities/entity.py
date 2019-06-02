@@ -5,9 +5,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # sql_instance_name = os.environ['USER_SERVICE_SQL_INSTANCE']
-# db_name = os.environ['USER_SERVICE_DB_NAME']
-# db_user = os.environ['USER_SERVICE_DB_USER']
-# db_password = os.environ['USER_SERVICE_DB_PASSWORD']
+db_name = os.environ['COMMUNITY_SERVICE_DB_NAME']
+db_user = os.environ['COMMUNITY_SERVICE_DB_USER']
+db_password = os.environ['COMMUNITY_SERVICE_DB_PASSWORD']
 
 # engine = sqlalchemy.create_engine(
 # 	# Equivalent URL:
@@ -24,9 +24,6 @@ from sqlalchemy.orm import sessionmaker
 # )
 
 ## For localhost
-db_name = '<db_name>'
-db_user = '<user>'
-db_password = '<password>'
 engine = sqlalchemy.create_engine('mysql+pymysql://{}:{}@localhost/{}'.format(db_user, db_password, db_name))
 
 Session = sessionmaker(bind=engine)
