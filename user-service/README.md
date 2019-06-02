@@ -1,4 +1,4 @@
-# talex-user-service
+# User Service
 This file describes the function provided by user service.
 
 ## Functions

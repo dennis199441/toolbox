@@ -14,7 +14,7 @@ jwt = JWTManager(app)
 
 @app.route('/community', methods=['POST'])
 @jwt_required
-def create_community():
+def add_community():
     community_name  = request.form.get('community_name')
 
     success = False
@@ -115,9 +115,9 @@ def update_community():
 
     return jsonify(result)
 
-@app.route('/delete_community', methods=['GET'])
+@app.route('/remove_community', methods=['GET'])
 @jwt_required
-def delete_community():
+def remove_community():
     current_user = get_jwt_identity()
     username = current_user['username']
     now = datetime.now()
@@ -148,7 +148,7 @@ def delete_community():
 
 @app.route('/member', methods=['POST'])
 @jwt_required
-def create_member():
+def add_member():
     community_name = request.form.get('community_name')
     user_id = request.form.get('user_id')
     description = request.form.get('description')
@@ -259,9 +259,9 @@ def get_member_list():
 
     return jsonify(member_list.data)  
 
-@app.route('/delete_member', methods=['GET'])
+@app.route('/remove_member', methods=['GET'])
 @jwt_required
-def delete_member():
+def remove_member():
     current_user = get_jwt_identity()
     community_name = request.args.get('community_name')
     user_id = request.args.get('user_id')
