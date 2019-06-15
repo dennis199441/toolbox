@@ -1,0 +1,13 @@
+runtime: python37
+
+service: group-service
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  GROUP_SERVICE_SQL_INSTANCE: 'talentexchange-236807:asia-east2:talent-group-db-dev'
+  GROUP_SERVICE_DB_NAME: 'group_service'
+  GROUP_SERVICE_DB_USER: 'talentAdmin'
+  GROUP_SERVICE_DB_PASSWORD: 'Abcd1234'

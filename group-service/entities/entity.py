@@ -4,10 +4,10 @@ from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# sql_instance_name = os.environ['USER_SERVICE_SQL_INSTANCE']
-db_name = os.environ['COMMUNITY_SERVICE_DB_NAME']
-db_user = os.environ['COMMUNITY_SERVICE_DB_USER']
-db_password = os.environ['COMMUNITY_SERVICE_DB_PASSWORD']
+# sql_instance_name = os.environ['COMMUNITY_SERVICE_SQL_INSTANCE']
+db_name = os.environ['GROUP_SERVICE_DB_NAME']
+db_user = os.environ['GROUP_SERVICE_DB_USER']
+db_password = os.environ['GROUP_SERVICE_DB_PASSWORD']
 
 # engine = sqlalchemy.create_engine(
 # 	# Equivalent URL:
