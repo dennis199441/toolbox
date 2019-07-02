@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
 
 import { appName } from '../../constants';
+import auth from '../../data/Auth';
 
 class LoginForm extends React.Component {
 
@@ -19,7 +20,8 @@ class LoginForm extends React.Component {
   }
 
   submitForm(e) {
-    console.log("sign in!");
+    console.log("submitForm!");
+    auth.setAuthenticated(true);
   }
 
   render() {
