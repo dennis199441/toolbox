@@ -5,9 +5,10 @@ from datetime import datetime
 from passlib.hash import pbkdf2_sha256 as sha256
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
+import os
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
+app.config['JWT_SECRET_KEY'] = os.environ['JWT_SECRET_STRING']
 jwt = JWTManager(app)
 
 @app.route('/auth/login', methods=['POST'])
@@ -35,7 +36,7 @@ def login():
         else:
             result['messages'] = 'Authentication failed'
     else:
-        retult['messages'] = 'Username not found'
+        result['messages'] = 'Username not found'
     
     return jsonify(result)
 
@@ -174,4 +175,4 @@ def create_user():
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
