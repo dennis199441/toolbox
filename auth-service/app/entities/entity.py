@@ -3,11 +3,12 @@ import sqlalchemy, os
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import config
 
-sql_instance_name = os.environ['USER_SERVICE_SQL_INSTANCE']
-db_name = os.environ['USER_SERVICE_DB_NAME']
-db_user = os.environ['USER_SERVICE_DB_USER']
-db_password = os.environ['USER_SERVICE_DB_PASSWORD']
+sql_instance_name = str(config.Config.DB_HOST)
+db_name = str(config.Config.DB_NAME)
+db_user = str(config.Config.DB_USER)
+db_password = str(config.Config.DB_PASSWORD)
 '''
 engine = sqlalchemy.create_engine(
 	# Equivalent URL:
