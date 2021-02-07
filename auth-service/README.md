@@ -14,3 +14,18 @@ The following example shows that only users with Admin or Operator roles can acc
 def func():
     ...
 ```
+
+### Build
+```bash
+docker-compose build
+```
+
+### Run
+```bash
+docker-compose up -d
+```
+
+### Stop
+```bash
+docker-compose down
+```
