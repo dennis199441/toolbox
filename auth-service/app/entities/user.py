@@ -4,10 +4,10 @@ from marshmallow import Schema, fields
 
 # Entity
 class User(Entity, Base):
-    __tablename__ = 'User'
+    __tablename__ = 'users'
 
-    username = Column(String)
-    email = Column(String)
+    username = Column(String, unique=True)
+    email = Column(String, unique=True)
     password = Column(String)
     is_active = Column(Integer)
 
