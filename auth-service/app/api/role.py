@@ -1,71 +1,51 @@
+import sys
 from flask import Flask, jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
+from ..decorators.role_required import role_required
 from ..entities.entity import Session
 from ..entities.role import Role, RoleSchema
+from ..services.role_service import get_all_roles, create_new_role, delete_existing_role
 
 role = Blueprint("role", __name__)
 
-@role.route('/', methods=['GET'])
-def get_roles():
-    session = Session()
-    try:
-        role_obj = session.query(Role)
-        schema = RoleSchema(many=True)
-        role = schema.dump(role_obj)
-    except Exception as e:
-        print("get roles error")
-    finally:
-        session.close()
 
-    return jsonify(role.data)
+@role.route('/', methods=['GET'])
+@jwt_required
+@role_required(["Admin"])
+def get_roles():
+    result, status = {}, 200
+    try:
+        result = get_all_roles()
+    except:
+        result["message"] = "Get all roles error"
+        status = 500
+    return jsonify(result), status
 
 
 @role.route('/', methods=['POST'])
+@jwt_required
+@role_required(["Admin"])
 def create_role():
     name = request.form.get('name')
+    result, status = {}, 200
+    try:
+        result = create_new_role(name)
+    except:
+        result["message"] = "Create role error"
+        status = 500
+    return jsonify(result), status
 
-    success = False
-    result, messages = {}, []
-    role = Role(name)
-    session = Session()
-    role_count = session.query(Role).filter_by(name=name).count()
-
-    if role_count == 0:
-        try:
-            session.add(role)
-            session.commit()
-            success = True
-            messages.append('role:{} created'.format(name))
-        except Exception as e:
-            print('create role exception', e)
-            session.rollback()
-            messages.append('role:{} creation fail'.format(name))
-
-    session.close()
-    result['success'] = success
-    result['message'] = messages
-
-    return jsonify(result)
 
 @role.route('/', methods=['DELETE'])
+@jwt_required
+@role_required(["Admin"])
 def delete_role():
     name = request.form.get('name')
-
-    success = False
-    result, messages = {}, []
-    session = Session()
-    role = session.query(Role).filter_by(name=name).first()
+    result, status = {}, 200
     try:
-        session.delete(role)
-        session.commit()
-        success = True
-        messages.append('role:{} deleted'.format(name))
-    except Exception as e:
-        print('delete role exception', e)
-        session.rollback()
-        messages.append('role:{} creation fail'.format(name))
-
-    session.close()
-    result['success'] = success
-    result['message'] = messages
-
-    return jsonify(result)
+        delete_existing_role(name)
+        result["message"] = f"Delete role:{name} success"
+    except:
+        result["message"] = "Delete role error"
+        status = 500
+    return jsonify(result), status

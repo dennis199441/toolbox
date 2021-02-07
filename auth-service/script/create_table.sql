@@ -29,5 +29,11 @@ create table user_roles(
     updated_at DATETIME DEFAULT NOW(),
     PRIMARY KEY(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (role_id) REFERENCES roles(id)
+    FOREIGN KEY (role_id) REFERENCES roles(id),
+    UNIQUE KEY user_role_id (user_id, role_id)
 );
+
+-- Before create user
+insert into roles(name) values("Admin");
+-- After create user (on-boarding the first user in the system)
+insert into user_roles(user_id, role_id) values(1, 1);

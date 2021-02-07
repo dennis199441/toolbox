@@ -16,6 +16,7 @@ def create_app():
         # REGISTER ROUTES
         app.register_blueprint(auth, url_prefix="/auth")
         app.register_blueprint(user, url_prefix="/user")
+        app.register_blueprint(role, url_prefix="/role")
         app.register_blueprint(user_role, url_prefix="/userrole")
 
         return app
