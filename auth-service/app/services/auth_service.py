@@ -42,3 +42,9 @@ def authenticate(username, password):
     result['refresh_token'] = refresh_token
 
     return result
+
+
+def refresh_token(current_user):
+    return {
+        'access_token': create_access_token(identity=current_user)
+    }

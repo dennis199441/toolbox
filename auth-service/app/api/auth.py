@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, Blueprint
-from ..services.auth_service import authenticate
+from flask_jwt_extended import jwt_refresh_token_required, get_jwt_identity
+from ..services.auth_service import authenticate, refresh_token
 
 auth = Blueprint("auth", __name__)
+
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -14,3 +16,10 @@ def login():
         result["message"] = "Authentication error!"
         status = 500
     return jsonify(result), status
+
+
+@auth.route('/refresh', methods=['POST'])
+@jwt_refresh_token_required
+def refresh():
+    current_user = get_jwt_identity()
+    return jsonify(refresh_token(current_user))
