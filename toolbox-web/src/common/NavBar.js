@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import NavLogoutBtn from './NavLogoutBtn';
+import NavBlogBtn from './NavBlogBtn';
 import NavDashboardBtn from './NavDashboardBtn';
 import NavProfileBtn from './NavProfileBtn';
 import NavHomeBtn from './NavHomeBtn';
@@ -65,6 +66,7 @@ export default function NavBar() {
     <div>
       <List>
         <NavDashboardBtn />
+        <NavBlogBtn />
         <NavUsersBtn />
       </List>
       <Divider />

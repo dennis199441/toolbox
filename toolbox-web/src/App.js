@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import './App.css';
 import { SecureRoute, PublicRoute, NotFound } from './common';
 import { About, Home, SignIn, SignUp } from './public';
-import { Profile, Dashboard, Users } from './secure';
+import { Profile, Dashboard, Users, Blog } from './secure';
 
 const theme = createMuiTheme({
   palette: {
@@ -30,6 +30,7 @@ function App() {
             <SecureRoute component={Dashboard} path="/secure/dashboard" exact />
             <SecureRoute component={Profile} path="/secure/profile" exact />
             <SecureRoute component={Users} path="/secure/users" exact />
+            <SecureRoute component={Blog} path="/secure/blog" exact />
             <Route component={NotFound} />
           </Switch>
         </div>
