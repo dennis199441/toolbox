@@ -4,6 +4,8 @@ create table users(
     email VARCHAR(500) NOT NULL,
     password VARCHAR(1000) NOT NULL,
     is_active INT DEFAULT 1 NOT NULL,
+    verified_email INT DEFAULT 0 NOT NULL,
+    last_login DATETIME,
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
     PRIMARY KEY(id),

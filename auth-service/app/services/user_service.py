@@ -4,6 +4,22 @@ from ..entities.entity import Session
 from ..entities.user import User, UserSchema
 
 
+def update_last_login(username):
+    session = Session()
+    now = datetime.now()
+    user_obj = session.query(User).filter_by(username=username)
+    if user_obj.count() == 1:
+        user_obj.update({
+            User.last_login: now,
+            User.updated_at: now
+        }, synchronize_session='fetch')
+        session.commit()
+        session.close()
+        return True
+    session.close()
+    return False
+
+
 def activate_user(username):
     session = Session()
     now = datetime.now()
