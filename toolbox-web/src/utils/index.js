@@ -42,6 +42,9 @@ export const logout = () => {
     localStorage.removeItem("refresh_token");
 }
 
+/**
+ * TODO: verify access_token and refresh_token
+ */
 export const isLogin = () => {
     if (localStorage.getItem("access_token") && localStorage.getItem("refresh_token")) {
         return true;
