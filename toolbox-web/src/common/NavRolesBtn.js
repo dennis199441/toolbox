@@ -6,12 +6,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BookIcon from '@material-ui/icons/Book';
 
-export default function NavBlogBtn() {
+export default function NavRolesBtn() {
 
     let history = useHistory();
 
     const handleClick = () => {
-        history.push("/secure/blog");
+        history.push("/secure/roles");
     }
 
     if (!isLogin()) {
@@ -19,9 +19,9 @@ export default function NavBlogBtn() {
     }
 
     return (
-        <ListItem onClick={handleClick} button key={"Blog"}>
+        <ListItem onClick={handleClick} button key={"Roles"}>
             <ListItemIcon><BookIcon /></ListItemIcon>
-            <ListItemText primary={"Blog"} />
+            <ListItemText primary={"Roles"} />
         </ListItem>
     )
 }

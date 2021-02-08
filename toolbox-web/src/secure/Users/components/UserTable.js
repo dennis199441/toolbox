@@ -14,18 +14,18 @@ const columns = [
   { field: 'name', headerName: 'Name', width: 250 },
   { field: 'email', headerName: 'Email', width: 250 },
   { field: 'roles', headerName: 'Roles', width: 150 },
-  { field: 'activate', headerName: 'Activate', width: 100 },
+  { field: 'activate', headerName: 'Activate', width: 150 },
   {
     field: 'createAt',
     headerName: 'Create At',
     sortable: true,
-    width: 160,
+    width: 135,
   },
   {
     field: 'lastLogin',
     headerName: 'Last Login',
     sortable: true,
-    width: 160,
+    width: 135,
   },
 ];
 

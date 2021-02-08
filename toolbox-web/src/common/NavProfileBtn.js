@@ -6,7 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
 
-export default function NavLogoutBtn() {
+export default function NavProfileBtn() {
 
     let history = useHistory();
 

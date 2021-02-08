@@ -17,6 +17,7 @@ import NavDashboardBtn from './NavDashboardBtn';
 import NavProfileBtn from './NavProfileBtn';
 import NavHomeBtn from './NavHomeBtn';
 import NavUsersBtn from './NavUsersBtn';
+import NavRolesBtn from './NavRolesBtn';
 import { isLogin } from '../utils';
 
 const drawerWidth = 240;
@@ -67,7 +68,11 @@ export default function NavBar() {
       <List>
         <NavDashboardBtn />
         <NavBlogBtn />
+      </List>
+      <Divider />
+      <List>
         <NavUsersBtn />
+        <NavRolesBtn />
       </List>
       <Divider />
       <List>
@@ -93,8 +98,8 @@ export default function NavBar() {
               <MenuIcon />
             </IconButton>
             : null}
-          
-          <NavHomeBtn/>
+
+          <NavHomeBtn />
         </Toolbar>
       </AppBar>
       {
