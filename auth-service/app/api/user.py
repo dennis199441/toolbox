@@ -58,5 +58,13 @@ def create_user():
     username = request.form.get('username')
     email = request.form.get('email')
     password = request.form.get('password')
+    result, status = {}, 200
     user = create_new_user(username, email, password)
-    return jsonify(user)
+    if not user:
+        result['sucecss'] = False
+        result['message'] = "Failed to create user"
+        status = 500
+        return jsonify(result), status
+    result['sucecss'] = True
+    result['message'] = f"Create user success. user_id={user['id']}"
+    return jsonify(result), status
