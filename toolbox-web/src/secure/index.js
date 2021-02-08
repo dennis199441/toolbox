@@ -1,5 +1,5 @@
-import Profile from './Profile';
-import Dashboard from './Dashboard';
-import Users from './Users';
+import Profile from './Profile/Profile';
+import Dashboard from './Dashboard/Dashboard';
+import Users from './Users/Users';
 
 export { Profile, Dashboard, Users };
