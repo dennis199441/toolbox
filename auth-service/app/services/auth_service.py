@@ -18,6 +18,10 @@ def authenticate(username, password):
         result['messages'] = 'Authentication failed'
         return result
 
+    if user['is_active'] == 0:
+        result['messages'] = 'Account is deactivated.'
+        return result
+        
     user_roles = get_user_roles(user['id'])
     roles = []
     for user_role in user_roles:

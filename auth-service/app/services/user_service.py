@@ -10,7 +10,7 @@ def activate_user(username):
     user_obj = session.query(User).filter_by(username=username)
     if user_obj.count() == 1:
         user_obj.update({
-            User.is_active: 1, 
+            User.is_active: 1,
             User.updated_at: now
         }, synchronize_session='fetch')
         session.commit()
@@ -26,7 +26,7 @@ def deactivate_user(username):
     user_obj = session.query(User).filter_by(username=username)
     if user_obj.count() == 1:
         user_obj.update({
-            User.is_active: 0, 
+            User.is_active: 0,
             User.updated_at: now
         }, synchronize_session='fetch')
         session.commit()
@@ -60,6 +60,15 @@ def get_user_info(username):
     return user.data
 
 
+def get_all_users():
+    session = Session()
+    user_obj = session.query(User)
+    schema = UserSchema(many=True)
+    user = schema.dump(user_obj)
+    session.close()
+    return user.data
+
+
 def create_new_user(username, email, password):
     hash_pw = sha256.hash(password)
     user_obj = User(username, email, hash_pw)
@@ -70,4 +79,3 @@ def create_new_user(username, email, password):
     user = schema.dump(user_obj)
     session.close()
     return user.data
-    
