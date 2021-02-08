@@ -6,7 +6,7 @@ export const signUp = async(username, email, password) => {
     form.append('email', email);
     form.append('password', password);
     
-    let response = await axios({
+    await axios({
         method: 'post',
         url: 'http://127.0.0.1:8080/user/',
         data: form
