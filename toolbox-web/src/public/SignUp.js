@@ -56,9 +56,7 @@ export default function SignUp() {
     let email = e.target[2].value;
     let password = e.target[4].value;
     await signUp(username, email, password);
-    if (isLogin()) {
-      history.replace("/secure/dashboard");
-    }
+    history.replace("/");
   }
 
   return (

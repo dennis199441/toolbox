@@ -5,17 +5,12 @@ export const signUp = async(username, email, password) => {
     form.append('username', username);
     form.append('email', email);
     form.append('password', password);
-
+    
     let response = await axios({
         method: 'post',
         url: 'http://127.0.0.1:8080/user/',
         data: form
     });
-    
-    let success = response.data.success;
-    if(success) {
-        await login(username, password);
-    }
 }
 
 export const login = async(username, password) => {
