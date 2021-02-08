@@ -5,13 +5,14 @@ import { DataGrid } from '@material-ui/data-grid';
 import Title from './Title';
 
 // Generate Order Data
-function createData(id, title, createAt, updateAt) {
-  return { id, title, createAt, updateAt };
+function createData(id, title, author, createAt, updateAt) {
+  return { id, title, author, createAt, updateAt };
 }
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'title', headerName: 'Title', width: 750 },
+  { field: 'title', headerName: 'Title', width: 500 },
+  { field: 'author', headerName: 'Author', width: 250 },
   {
     field: 'createAt',
     headerName: 'Create At',
@@ -27,8 +28,8 @@ const columns = [
 ];
 
 const rows = [
-  createData(0, 'Title 1', '16 Mar, 2020', '8 Feb, 2021'),
-  createData(1, 'Title 2', '16 Sep, 2020', '8 Feb, 2021')
+  createData(0, 'Title 1', 'dennis', '16 Mar, 2020', '8 Feb, 2021'),
+  createData(1, 'Title 2', 'dennis','16 Sep, 2020', '8 Feb, 2021')
 ];
 
 function preventDefault(event) {
