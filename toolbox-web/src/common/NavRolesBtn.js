@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import BookIcon from '@material-ui/icons/Book';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
 
 export default function NavRolesBtn() {
 
@@ -20,7 +20,7 @@ export default function NavRolesBtn() {
 
     return (
         <ListItem onClick={handleClick} button key={"Roles"}>
-            <ListItemIcon><BookIcon /></ListItemIcon>
+            <ListItemIcon><AccessibilityIcon /></ListItemIcon>
             <ListItemText primary={"Roles"} />
         </ListItem>
     )

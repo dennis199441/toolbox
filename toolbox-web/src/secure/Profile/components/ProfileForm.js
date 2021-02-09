@@ -1,43 +1,52 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 
-// Generate Order Data
-function createData(id, name, email, roles, activate, createAt, lastLogin) {
-  return { id, name, email, roles, activate, createAt, lastLogin };
-}
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
   },
-}));
+});
 
-const handleSubmit = (event) => {
-  console.log(event);
+function createData(key, value, type) {
+  return { key, value, type };
 }
+
+const rows = [
+  createData('Username', 'dennis', 'text'),
+  createData('Email', 'denni@gmailcom', 'email'),
+  createData('Password', '*******', 'password'),
+];
 
 export default function ProfileForm() {
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <Title>Profile</Title>
-      <FormControl>
-        <InputLabel htmlFor="username">Username</InputLabel>
-        <Input id="username" aria-describedby="username" />
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="email">Email address</InputLabel>
-        <Input id="email" aria-describedby="email" />
-      </FormControl>
+      <Table className={classes.table} aria-label="profile">
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.name}>
+              <TableCell align="left" scope="row">
+                <Typography align="left">
+                  {row.key}
+                </Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography align="left">
+                  {row.value}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </React.Fragment>
   );
 }
