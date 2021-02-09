@@ -20,7 +20,7 @@ function createData(key, value, type) {
 const rows = [
   createData('Username', 'dennis', 'text'),
   createData('Email', 'denni@gmailcom', 'email'),
-  createData('Password', '********', 'password'),
+  createData('Password', '*******', 'password'),
 ];
 
 export default function ProfileForm() {
