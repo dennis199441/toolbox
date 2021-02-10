@@ -40,9 +40,9 @@ def get_all_roles():
     session.close()
     return role.data
 
-def create_new_role(name):
+def create_new_role(name, desc):
     session = Session()
-    role_obj = Role(name)
+    role_obj = Role(name, desc)
     session.add(role_obj)
     session.commit()
     schema = RoleSchema(many=False)

@@ -17,6 +17,7 @@ CREATE  UNIQUE INDEX idx_user_1 ON users(username);
 create table roles(
 	id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(250) NOT NULL,
+    description VARCHAR(250) DEFAULT NULL,
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
     PRIMARY KEY(id),

@@ -27,9 +27,10 @@ def get_roles():
 @role_required(["Admin"])
 def create_role():
     name = request.form.get('name')
+    description = request.form.get('description')
     result, status = {}, 200
     try:
-        result = create_new_role(name)
+        result = create_new_role(name, description)
     except:
         result["message"] = "Create role error"
         status = 500
