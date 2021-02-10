@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
 import Title from './Title';
+import { getRoles } from '../../../utils/index';
 
 // Generate Order Data
 function createData(id, name, desc, createAt, lastLogin) {
@@ -27,11 +28,6 @@ const columns = [
   },
 ];
 
-const rows = [
-  createData(0, 'Admin', 'Can access all APIs', '16 Mar, 2020', '8 Feb, 2021'),
-  createData(1, 'Operator', 'Can access some APIs', '16 Mar, 2020', '8 Feb, 2021')
-];
-
 function preventDefault(event) {
   event.preventDefault();
 }
@@ -42,7 +38,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UserTable() {
+export default function RoleTable() {
+
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getRoles();
+      let roles = data.map((role) => {
+        return createData(role.id, role.name, role.description, role.created_at, role.updated_at)
+      });
+      setRows(roles)
+    };
+    fetchData()
+  }, []);
+
   const classes = useStyles();
   return (
     <React.Fragment>
