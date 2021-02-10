@@ -60,6 +60,12 @@ export default function RoleTable() {
       for (let i = 0; i < selected.length; i++) {
         await deleteRole(selected[i]);
       }
+
+      const data = await getRoles();
+      let roles = data.map((role) => {
+        return createData(role.name, role.name, role.description, role.created_at, role.updated_at)
+      });
+      setRows(roles)
     };
     fetchData()
   }

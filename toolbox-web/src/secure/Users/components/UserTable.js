@@ -62,6 +62,13 @@ export default function UserTable() {
       for (let i = 0; i < selected.length; i++) {
         await activateUser(selected[i]);
       }
+
+      const data = await getUsers();
+      let users = data.map((user) => {
+        let is_active = user.is_active === 1 ? true : false;
+        return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
+      });
+      setRows(users)
     };
     fetchData()
   }
@@ -71,8 +78,16 @@ export default function UserTable() {
       for (let i = 0; i < selected.length; i++) {
         await deactivateUser(selected[i]);
       }
+
+      const data = await getUsers();
+      let users = data.map((user) => {
+        let is_active = user.is_active === 1 ? true : false;
+        return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
+      });
+      setRows(users)
     };
     fetchData();
+    setRows([])
   }
 
   return (
