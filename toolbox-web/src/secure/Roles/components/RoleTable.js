@@ -3,26 +3,25 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
 import Title from './Title';
-import { getRoles } from '../../../utils/index';
+import { getRoles } from '../../../utils';
 
 // Generate Order Data
-function createData(id, name, desc, createAt, lastLogin) {
-  return { id, name, desc, createAt, lastLogin };
+function createData(id, name, desc, createAt, updateAt) {
+  return { id, name, desc, createAt, updateAt };
 }
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
   { field: 'name', headerName: 'Name', width: 300 },
   { field: 'desc', headerName: 'Description', width: 500 },
   {
     field: 'createAt',
-    headerName: 'Create At',
+    headerName: 'Created At',
     sortable: true,
     width: 135,
   },
   {
-    field: 'lastLogin',
-    headerName: 'Last Login',
+    field: 'updateAt',
+    headerName: 'Updated At',
     sortable: true,
     width: 135,
   },
@@ -41,12 +40,13 @@ const useStyles = makeStyles((theme) => ({
 export default function RoleTable() {
 
   const [rows, setRows] = useState([]);
-
+  const [selected, setSelected] = useState([]);
+    
   useEffect(() => {
     async function fetchData() {
       const data = await getRoles();
       let roles = data.map((role) => {
-        return createData(role.id, role.name, role.description, role.created_at, role.updated_at)
+        return createData(role.name, role.name, role.description, role.created_at, role.updated_at)
       });
       setRows(roles)
     };
@@ -54,11 +54,16 @@ export default function RoleTable() {
   }, []);
 
   const classes = useStyles();
+  
+  const onSelectionChange = (newSelection) => {
+    setSelected(newSelection.rowIds);
+  }
+
   return (
     <React.Fragment>
       <Title>Roles</Title>
       <div style={{ height: 700, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection />
+        <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection onSelectionChange={onSelectionChange} />
       </div>
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>

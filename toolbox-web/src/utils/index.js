@@ -1,5 +1,25 @@
 import axios from 'axios';
 
+export const getCurrentUser = async () => {
+    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let response = await axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8080/user/me',
+        headers: { 'Authorization': access_token }
+    });
+    return response.data;
+}
+
+export const getUsers = async () => {
+    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let response = await axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8080/user/',
+        headers: { 'Authorization': access_token }
+    });
+    return response.data;
+}
+
 export const getRoles = async () => {
     const access_token = 'Bearer ' + localStorage.getItem("access_token");
     let response = await axios({

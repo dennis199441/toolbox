@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
+import { getCurrentUser } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
@@ -17,13 +18,24 @@ function createData(key, value, type) {
   return { key, value, type };
 }
 
-const rows = [
-  createData('Username', 'dennis', 'text'),
-  createData('Email', 'denni@gmailcom', 'email'),
-  createData('Password', '********', 'password'),
-];
-
 export default function ProfileForm() {
+
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getCurrentUser();
+      const user = [
+        createData('Username', data.username, 'text'),
+        createData('Email', data.email, 'email'),
+        createData('Password', '********', 'password'),
+      ];
+
+      setRows(user);
+    };
+    fetchData()
+  }, []);
+
   const classes = useStyles();
 
   return (
