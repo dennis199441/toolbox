@@ -1,5 +1,25 @@
 import axios from 'axios';
 
+export const activateUser = async (username) => {
+    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let response = await axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8080/user/activate/' + username,
+        headers: { 'Authorization': access_token }
+    });
+    return response.data === "activated user: " + username;
+}
+
+export const deactivateUser = async (username) => {
+    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let response = await axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8080/user/deactivate/' + username,
+        headers: { 'Authorization': access_token }
+    });
+    return response.data === "deactivated user: " + username;
+}
+
 export const getCurrentUser = async () => {
     const access_token = 'Bearer ' + localStorage.getItem("access_token");
     let response = await axios({
@@ -26,6 +46,19 @@ export const getRoles = async () => {
         method: 'get',
         url: 'http://127.0.0.1:8080/role/',
         headers: { 'Authorization': access_token }
+    });
+    return response.data;
+}
+
+export const deleteRole = async (name) => {
+    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let form = new FormData();
+    form.append('name', name);
+    let response = await axios({
+        method: 'delete',
+        url: 'http://127.0.0.1:8080/role/',
+        headers: { 'Authorization': access_token },
+        data: form
     });
     return response.data;
 }

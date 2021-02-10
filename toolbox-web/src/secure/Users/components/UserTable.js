@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
+import Button from '@material-ui/core/Button';
 import Title from './Title';
-import { getUsers } from '../../../utils';
+import { getUsers, activateUser, deactivateUser } from '../../../utils';
 
 // Generate Order Data
 function createData(id, name, email, activate, createAt, lastLogin) {
@@ -11,26 +11,22 @@ function createData(id, name, email, activate, createAt, lastLogin) {
 }
 
 const columns = [
-  { field: 'name', headerName: 'Username', width: 300 },
+  { field: 'name', headerName: 'Username', width: 200 },
   { field: 'email', headerName: 'Email', width: 350 },
   { field: 'activate', headerName: 'Activate', width: 150 },
   {
     field: 'createAt',
     headerName: 'Created At',
     sortable: true,
-    width: 135,
+    width: 200,
   },
   {
     field: 'lastLogin',
     headerName: 'Last Login',
     sortable: true,
-    width: 135,
+    width: 200,
   },
 ];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -61,6 +57,24 @@ export default function UserTable() {
     setSelected(newSelection.rowIds);
   }
 
+  const handleActivate = () => {
+    async function fetchData() {
+      for (let i = 0; i < selected.length; i++) {
+        await activateUser(selected[i]);
+      }
+    };
+    fetchData()
+  }
+
+  const handleDeactivate = () => {
+    async function fetchData() {
+      for (let i = 0; i < selected.length; i++) {
+        await deactivateUser(selected[i]);
+      }
+    };
+    fetchData();
+  }
+
   return (
     <React.Fragment>
       <Title>Users</Title>
@@ -68,9 +82,8 @@ export default function UserTable() {
         <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection onSelectionChange={onSelectionChange} />
       </div>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more Users
-        </Link>
+        <Button onClick={handleActivate} color="primary">Activate</Button>
+        <Button onClick={handleDeactivate} color="secondary">Deactivate</Button>
       </div>
     </React.Fragment>
   );

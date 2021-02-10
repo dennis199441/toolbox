@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
+import Button from '@material-ui/core/Button';
 import Title from './Title';
-import { getRoles } from '../../../utils';
+import { getRoles, deleteRole } from '../../../utils';
 
 // Generate Order Data
 function createData(id, name, desc, createAt, updateAt) {
@@ -11,25 +11,21 @@ function createData(id, name, desc, createAt, updateAt) {
 }
 
 const columns = [
-  { field: 'name', headerName: 'Name', width: 300 },
+  { field: 'name', headerName: 'Name', width: 200 },
   { field: 'desc', headerName: 'Description', width: 500 },
   {
     field: 'createAt',
     headerName: 'Created At',
     sortable: true,
-    width: 135,
+    width: 200,
   },
   {
     field: 'updateAt',
     headerName: 'Updated At',
     sortable: true,
-    width: 135,
+    width: 200,
   },
 ];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -41,7 +37,7 @@ export default function RoleTable() {
 
   const [rows, setRows] = useState([]);
   const [selected, setSelected] = useState([]);
-    
+
   useEffect(() => {
     async function fetchData() {
       const data = await getRoles();
@@ -54,9 +50,18 @@ export default function RoleTable() {
   }, []);
 
   const classes = useStyles();
-  
+
   const onSelectionChange = (newSelection) => {
     setSelected(newSelection.rowIds);
+  }
+
+  const handleDelete = () => {
+    async function fetchData() {
+      for (let i = 0; i < selected.length; i++) {
+        await deleteRole(selected[i]);
+      }
+    };
+    fetchData()
   }
 
   return (
@@ -66,9 +71,7 @@ export default function RoleTable() {
         <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection onSelectionChange={onSelectionChange} />
       </div>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more Roles
-        </Link>
+        <Button onClick={handleDelete} color="secondary">Delete</Button>
       </div>
     </React.Fragment>
   );
