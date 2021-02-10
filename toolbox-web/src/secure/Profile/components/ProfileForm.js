@@ -32,7 +32,7 @@ export default function ProfileForm() {
       <Table className={classes.table} aria-label="profile">
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.key}>
               <TableCell align="left" scope="row">
                 <Typography align="left">
                   {row.key}
