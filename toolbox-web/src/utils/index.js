@@ -1,67 +1,44 @@
 import axios from 'axios';
+import { httpGet, httpDelete } from './http';
+
+// Private API
 
 export const activateUser = async (username) => {
-    const access_token = 'Bearer ' + localStorage.getItem("access_token");
-    let response = await axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8080/user/activate/' + username,
-        headers: { 'Authorization': access_token }
-    });
-    return response.data === "activated user: " + username;
+    let url = 'http://127.0.0.1:8080/user/activate/' + username;
+    const data = await httpGet(url);
+    return data === "activated user: " + username;
 }
 
 export const deactivateUser = async (username) => {
-    const access_token = 'Bearer ' + localStorage.getItem("access_token");
-    let response = await axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8080/user/deactivate/' + username,
-        headers: { 'Authorization': access_token }
-    });
-    return response.data === "deactivated user: " + username;
+    let url = 'http://127.0.0.1:8080/user/deactivate/' + username;
+    const data = await httpGet(url);
+    return data === "deactivated user: " + username;
 }
 
 export const getCurrentUser = async () => {
-    const access_token = 'Bearer ' + localStorage.getItem("access_token");
-    let response = await axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8080/user/me',
-        headers: { 'Authorization': access_token }
-    });
-    return response.data;
+    let url = 'http://127.0.0.1:8080/user/me';
+    return await httpGet(url);
 }
 
 export const getUsers = async () => {
-    const access_token = 'Bearer ' + localStorage.getItem("access_token");
-    let response = await axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8080/user/',
-        headers: { 'Authorization': access_token }
-    });
-    return response.data;
+    let url = 'http://127.0.0.1:8080/user/';
+    return await httpGet(url);
 }
 
 export const getRoles = async () => {
-    const access_token = 'Bearer ' + localStorage.getItem("access_token");
-    let response = await axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8080/role/',
-        headers: { 'Authorization': access_token }
-    });
-    return response.data;
+    let url = 'http://127.0.0.1:8080/role/';
+    return await httpGet(url);
 }
 
 export const deleteRole = async (name) => {
-    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let url = 'http://127.0.0.1:8080/role/';
     let form = new FormData();
     form.append('name', name);
-    let response = await axios({
-        method: 'delete',
-        url: 'http://127.0.0.1:8080/role/',
-        headers: { 'Authorization': access_token },
-        data: form
-    });
-    return response.data;
+    return await httpDelete(url ,form);
 }
+
+
+// Public API
 
 export const signUp = async (username, email, password) => {
     let form = new FormData();
@@ -100,9 +77,6 @@ export const logout = () => {
     localStorage.removeItem("refresh_token");
 }
 
-/**
- * TODO: verify access_token and refresh_token
- */
 export const isLogin = () => {
     if (localStorage.getItem("access_token") && localStorage.getItem("refresh_token")) {
         return true;
