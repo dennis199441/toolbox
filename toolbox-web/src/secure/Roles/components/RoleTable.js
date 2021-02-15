@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
 import Button from '@material-ui/core/Button';
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RoleTable() {
 
+  const history = useHistory();
   const [rows, setRows] = useState([]);
   const [selected, setSelected] = useState([]);
 
@@ -55,6 +57,10 @@ export default function RoleTable() {
 
   const onSelectionChange = (newSelection) => {
     setSelected(newSelection.rowIds);
+  }
+
+  const handleCreate = () => {
+    history.push('/secure/roles/create');
   }
 
   const handleDelete = () => {
@@ -81,6 +87,7 @@ export default function RoleTable() {
         <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection onSelectionChange={onSelectionChange} />
       </div>
       <div className={classes.seeMore}>
+        <Button onClick={handleCreate} color="primary">Create</Button>
         <Button onClick={handleDelete} color="secondary">Delete</Button>
       </div>
     </React.Fragment>

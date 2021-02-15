@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { httpGet, httpDelete } from './http';
+import { httpGet, httpPost, httpDelete } from './http';
 
 // Private API
 
@@ -38,6 +38,14 @@ export const getRoles = async () => {
 export const getUserRoles = async (username) => {
     let url = 'http://127.0.0.1:8080/userrole/' + username;
     return await httpGet(url);
+}
+
+export const createRole = async (name, description) => {
+    let url = 'http://127.0.0.1:8080/role/';
+    let form = new FormData();
+    form.append('name', name);
+    form.append('description', description);
+    return await httpPost(url ,form);
 }
 
 export const deleteRole = async (name) => {
