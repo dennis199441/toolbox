@@ -2,6 +2,14 @@ from ..entities.entity import Session
 from ..entities.user_roles import UserRole, UserRoleSchema
 from ..entities.role import Role, RoleSchema
 
+def get_role_by_name(role_name):
+    session = Session()
+    role_obj = session.query(Role).filter_by(name=role_name).first()
+    schema = RoleSchema(many=False)
+    role = schema.dump(role_obj)
+    session.close()
+    return role.data
+
 def get_role_by_id(role_id):
     session = Session()
     role_obj = session.query(Role).filter_by(id=role_id).first()
