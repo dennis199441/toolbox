@@ -12,11 +12,13 @@ def get_role_by_id(role_id):
 
 def get_user_roles(user_id):
     session = Session()
-    user_role_obj = session.query(UserRole).filter_by(user_id=user_id)
-    schema = UserRoleSchema(many=True)
-    user_role = schema.dump(user_role_obj)
+    user_roles = session.query(UserRole).filter_by(user_id=user_id)
+    role_ids = [user_role.role_id for user_role in user_roles]
+    role_obj = session.query(Role).filter(Role.id.in_(role_ids)).all()
+    schema = RoleSchema(many=True)
+    roles = schema.dump(role_obj)
     session.close()
-    return user_role.data
+    return roles.data
 
 def grant_role(user_id, role_id):
     user_role = UserRole(user_id, role_id)
