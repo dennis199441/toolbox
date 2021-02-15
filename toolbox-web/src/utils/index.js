@@ -25,6 +25,11 @@ export const getUsers = async () => {
     return await httpGet(url);
 }
 
+export const getUserDetails = async (username) => {
+    let url = 'http://127.0.0.1:8080/user/' + username;
+    return await httpGet(url);
+}
+
 export const getRoles = async () => {
     let url = 'http://127.0.0.1:8080/role/';
     return await httpGet(url);

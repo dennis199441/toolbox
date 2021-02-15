@@ -11,7 +11,19 @@ function createData(id, name, email, activate, createAt, lastLogin) {
 }
 
 const columns = [
-  { field: 'name', headerName: 'Username', width: 200 },
+  {
+    field: 'name',
+    headerName: 'Username',
+    width: 200,
+    renderCell: (params) => {
+      let url = "/secure/users/" + params.value;
+      return (
+        <a href={url}>
+          {params.value}
+        </a>
+      )
+    },
+  },
   { field: 'email', headerName: 'Email', width: 350 },
   { field: 'activate', headerName: 'Activate', width: 150 },
   {
