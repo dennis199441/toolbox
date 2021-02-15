@@ -41,10 +41,12 @@ export default function RoleTable() {
   useEffect(() => {
     async function fetchData() {
       const data = await getRoles();
-      let roles = data.map((role) => {
-        return createData(role.name, role.name, role.description, role.created_at, role.updated_at)
-      });
-      setRows(roles)
+      if (data) {
+        let roles = data.map((role) => {
+          return createData(role.name, role.name, role.description, role.created_at, role.updated_at)
+        });
+        setRows(roles)
+      }
     };
     fetchData()
   }, []);
@@ -62,10 +64,12 @@ export default function RoleTable() {
       }
 
       const data = await getRoles();
-      let roles = data.map((role) => {
-        return createData(role.name, role.name, role.description, role.created_at, role.updated_at)
-      });
-      setRows(roles)
+      if (data) {
+        let roles = data.map((role) => {
+          return createData(role.name, role.name, role.description, role.created_at, role.updated_at)
+        });
+        setRows(roles)
+      }
     };
     fetchData()
   }

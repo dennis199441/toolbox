@@ -54,11 +54,13 @@ export default function UserTable() {
   useEffect(() => {
     async function fetchData() {
       const data = await getUsers();
-      let users = data.map((user) => {
-        let is_active = user.is_active === 1 ? true : false;
-        return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
-      });
-      setRows(users)
+      if (data) {
+        let users = data.map((user) => {
+          let is_active = user.is_active === 1 ? true : false;
+          return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
+        });
+        setRows(users)
+      }
     };
     fetchData()
   }, []);
@@ -76,11 +78,13 @@ export default function UserTable() {
       }
 
       const data = await getUsers();
-      let users = data.map((user) => {
-        let is_active = user.is_active === 1 ? true : false;
-        return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
-      });
-      setRows(users)
+      if (data) {
+        let users = data.map((user) => {
+          let is_active = user.is_active === 1 ? true : false;
+          return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
+        });
+        setRows(users)
+      }
     };
     fetchData()
   }
@@ -92,11 +96,13 @@ export default function UserTable() {
       }
 
       const data = await getUsers();
-      let users = data.map((user) => {
-        let is_active = user.is_active === 1 ? true : false;
-        return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
-      });
-      setRows(users)
+      if (data) {
+        let users = data.map((user) => {
+          let is_active = user.is_active === 1 ? true : false;
+          return createData(user.username, user.username, user.email, is_active, user.created_at, user.last_login)
+        });
+        setRows(users)
+      }
     };
     fetchData();
     setRows([])
