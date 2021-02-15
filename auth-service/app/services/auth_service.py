@@ -26,8 +26,7 @@ def authenticate(username, password):
     user_roles = get_user_roles(user['id'])
     roles = []
     for user_role in user_roles:
-        role = get_role_by_id(user_role['role_id'])
-        roles.append(role['name'])
+        roles.append(user_role['name'])
 
     identity = {}
     identity['id'] = user['id']
