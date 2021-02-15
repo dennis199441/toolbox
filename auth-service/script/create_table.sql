@@ -31,8 +31,8 @@ create table user_roles(
     created_at DATETIME DEFAULT NOW(),
     updated_at DATETIME DEFAULT NOW(),
     PRIMARY KEY(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (role_id) REFERENCES roles(id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
     UNIQUE KEY user_role_id (user_id, role_id)
 );
 
