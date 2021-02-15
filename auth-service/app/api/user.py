@@ -25,6 +25,13 @@ def deactivate(username):
     return jsonify(f"deactivated user: {username}")
 
 
+@user.route('/<username>', methods=['GET'])
+@jwt_required
+@role_required(["Admin"])
+def get_user_details(username):
+    user = get_user_info(username)
+    return jsonify(user)
+
 @user.route('/change_password', methods=['POST'])
 @jwt_required
 def change_password():
