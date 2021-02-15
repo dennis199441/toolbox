@@ -122,7 +122,9 @@ export default function UserDetailsForm(props) {
           name="role_name"
           autoFocus
         />
-        <Button type="submit" color="primary">Grant</Button>
+        <div align="center">
+          <Button type="submit" color="primary">Grant</Button>
+        </div>
       </form>
     </React.Fragment>
   );
