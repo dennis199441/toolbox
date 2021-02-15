@@ -55,6 +55,21 @@ export const deleteRole = async (name) => {
     return await httpDelete(url ,form);
 }
 
+export const grantRole = async (userId, roleId) => {
+    let url = 'http://127.0.0.1:8080/userrole/';
+    let form = new FormData();
+    form.append('user_id', userId);
+    form.append('role_id', roleId);
+    return await httpPost(url ,form);
+}
+
+export const revokeRole = async (userId, roleId) => {
+    let url = 'http://127.0.0.1:8080/userrole/';
+    let form = new FormData();
+    form.append('user_id', userId);
+    form.append('role_id', roleId);
+    return await httpDelete(url ,form);
+}
 
 // Public API
 
