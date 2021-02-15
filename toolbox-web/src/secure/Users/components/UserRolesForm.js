@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import { getUserDetails } from '../../../utils';
+import { getUserRoles } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
@@ -15,8 +16,8 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(key, value, type) {
-  return { key, value, type };
+function createData(name, description) {
+  return { name, description };
 }
 
 export default function UserDetailsForm(props) {
@@ -27,18 +28,12 @@ export default function UserDetailsForm(props) {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getUserDetails(props.username);
-      if (!data.username) {
-        history.replace("/secure/users");
-        return;
-      }
-      const user = [
-        createData('Username', data.username, 'text'),
-        createData('Email', data.email, 'email'),
-        createData('Password', '********', 'password'),
-      ];
+      const data = await getUserRoles(props.username);
+      const roles = data.map((role) => {
+        return createData(role.name, role.description);
+      })
 
-      setRows(user);
+      setRows(roles);
     };
     fetchData()
   }, [history, props.username]);
@@ -47,19 +42,29 @@ export default function UserDetailsForm(props) {
 
   return (
     <React.Fragment>
-      <Title>User Details</Title>
+      <Title>Roles</Title>
       <Table className={classes.table} aria-label="profile">
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              <Typography align="left"><b>Name</b></Typography>
+            </TableCell>
+            <TableCell align="left">
+              <Typography align="left"><b>Description</b></Typography>
+            </TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.key}>
+            <TableRow key={row.name}>
               <TableCell align="left" scope="row">
                 <Typography align="left">
-                  {row.key}
+                  {row.name}
                 </Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography align="left">
-                  {row.value}
+                  {row.description}
                 </Typography>
               </TableCell>
             </TableRow>

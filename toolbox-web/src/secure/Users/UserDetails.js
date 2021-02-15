@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import UserDetailsForm from './components/UserDetailsForm';
+import UserRolesForm from './components/UserRolesForm';
 import NavBar from '../../common/NavBar';
 
 function Copyright() {
@@ -65,6 +66,10 @@ export default function UserDetails() {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <UserDetailsForm username={username} />
+                            </Paper>
+                            <br/>
+                            <Paper className={classes.paper}>
+                                <UserRolesForm username={username} />
                             </Paper>
                         </Grid>
                     </Grid>
