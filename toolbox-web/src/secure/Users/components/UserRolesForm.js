@@ -7,9 +7,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import { getUserDetails, getUserRoles, revokeRole } from '../../../utils';
+import { getUserDetails, getUserRoles, getRoleByName, grantRole, revokeRole } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
@@ -26,7 +27,7 @@ export default function UserDetailsForm(props) {
   const history = useHistory();
   const [rows, setRows] = useState([]);
 
-  const handleRevoke = async(e) => {
+  const handleRevoke = async (e) => {
     let roleId = e.target.getAttribute('value');
     let user = await getUserDetails(props.username);
     await revokeRole(user.id, roleId);
@@ -39,6 +40,23 @@ export default function UserDetailsForm(props) {
       setRows(roles);
     };
     fetchData();
+  }
+
+  const handleGrant = async (e) => {
+    e.preventDefault();
+    let role_name = e.target[0].value;
+    if (!role_name) {
+      return false;
+    }
+
+    let user = await getUserDetails(props.username);
+    let role = await getRoleByName(role_name);
+    if (!user || !role) {
+      return false;
+    }
+
+    await grantRole(user.id, role.id);
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -85,8 +103,8 @@ export default function UserDetailsForm(props) {
               </TableCell>
               <TableCell align="right">
                 <Button onClick={handleRevoke} color="secondary">
-                <Typography align="left" value={row.id}>
-                  Revoke
+                  <Typography align="left" value={row.id}>
+                    Revoke
                 </Typography>
                 </Button>
               </TableCell>
@@ -94,6 +112,18 @@ export default function UserDetailsForm(props) {
           ))}
         </TableBody>
       </Table>
+      <form onSubmit={handleGrant}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="role_name"
+          label="Role name"
+          name="role_name"
+          autoFocus
+        />
+        <Button type="submit" color="primary">Grant</Button>
+      </form>
     </React.Fragment>
   );
 }

@@ -35,6 +35,11 @@ export const getRoles = async () => {
     return await httpGet(url);
 }
 
+export const getRoleByName = async (name) => {
+    let url = 'http://127.0.0.1:8080/role/' + name;
+    return await httpGet(url);
+}
+
 export const getUserRoles = async (username) => {
     let url = 'http://127.0.0.1:8080/userrole/' + username;
     return await httpGet(url);
