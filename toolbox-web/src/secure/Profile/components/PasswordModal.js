@@ -38,13 +38,12 @@ export default function PasswordModal() {
       setOldPasswordError(true);
       return false;
     }
-    
+
     if (!newPassword) {
       setNewPasswordError(true);
       return false;
     }
 
-    // setError(false);
     console.log(oldPassword);
     console.log(newPassword);
     window.location.reload();

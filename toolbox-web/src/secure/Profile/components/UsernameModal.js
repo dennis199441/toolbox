@@ -36,7 +36,7 @@ export default function UsernameModal() {
       setError(true);
       return false;
     }
-    // setError(false);
+
     console.log(username);
     window.location.reload();
   }
