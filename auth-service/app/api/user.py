@@ -2,7 +2,7 @@ import sys
 from flask import Flask, jsonify, request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..decorators.role_required import role_required
-from ..services.user_service import activate_user, deactivate_user, change_user_password, get_user_info, get_all_users, create_new_user
+from ..services.user_service import activate_user, deactivate_user, change_user_password, get_user_info, get_all_users, create_new_user, update_username
 
 user = Blueprint("user", __name__)
 
@@ -32,15 +32,28 @@ def get_user_details(username):
     user = get_user_info(username)
     return jsonify(user)
 
+
 @user.route('/change_password', methods=['POST'])
 @jwt_required
 def change_password():
     current_user = get_jwt_identity()
     username = current_user['username']
-    password = request.form.get('password')
-    if not change_user_password(username, password):
+    old_pw = request.form.get('oldPassword')
+    new_pw = request.form.get('newPassword')
+    if not change_user_password(username, old_pw, new_pw):
         return jsonify(f"fail to change password for user:{username}")
     return jsonify(f"change password for user:{username} success")
+
+
+@user.route('/change_username', methods=['POST'])
+@jwt_required
+def change_username():
+    current_user = get_jwt_identity()
+    userId = current_user['id']
+    username = request.form.get('username')
+    if not update_username(userId, username):
+        return jsonify(f"fail to update username for user:{userId}")
+    return jsonify(f"update username for user:{userId} success")
 
 
 @user.route('/me', methods=['GET'])
