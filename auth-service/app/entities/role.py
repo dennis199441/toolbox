@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Integer
 from .entity import Entity, Base, engine
 from marshmallow import Schema, fields
 
+
 class Role(Entity, Base):
     __tablename__ = 'roles'
 
@@ -13,7 +14,7 @@ class Role(Entity, Base):
         self.name = name
         self.description = description
 
-# Business Object
+
 class RoleSchema(Schema):
     id = fields.Number()
     name = fields.Str()

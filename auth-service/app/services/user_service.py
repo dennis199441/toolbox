@@ -4,6 +4,7 @@ from ..entities.entity import Session
 from ..entities.user import User, UserSchema
 import sys
 
+
 def update_last_login(username):
     session = Session()
     now = datetime.now()

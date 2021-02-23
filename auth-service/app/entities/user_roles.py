@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, ForeignKey
 from .entity import Entity, Base
 from marshmallow import Schema, fields
 
-# Entity
+
 class UserRole(Entity, Base):
     __tablename__ = 'user_roles'
 
@@ -14,7 +14,7 @@ class UserRole(Entity, Base):
         self.user_id = user_id
         self.role_id = role_id
 
-# Business Object
+
 class UserRoleSchema(Schema):
     id = fields.Number()
     user_id = fields.Number()

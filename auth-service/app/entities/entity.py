@@ -1,5 +1,6 @@
 from datetime import datetime
-import sqlalchemy, os
+import sqlalchemy
+import os
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -24,18 +25,20 @@ engine = sqlalchemy.create_engine(
 	)
 )
 '''
-## For localhost
-engine = sqlalchemy.create_engine('mysql+pymysql://{}:{}@{}/{}'.format(db_user, db_password, sql_instance_name, db_name))
+# For localhost
+engine = sqlalchemy.create_engine(
+    'mysql+pymysql://{}:{}@{}/{}'.format(db_user, db_password, sql_instance_name, db_name))
 
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
 
-class Entity():
-	id = Column(Integer, primary_key=True)
-	created_at = Column(DateTime)
-	updated_at = Column(DateTime)
 
-	def __init__(self):
-		self.created_at = datetime.now()
-		self.updated_at = datetime.now()
+class Entity():
+    id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+    def __init__(self):
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()

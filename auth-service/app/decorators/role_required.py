@@ -3,6 +3,7 @@ from functools import wraps
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended.exceptions import NoAuthorizationError
 
+
 class role_required(object):
 
     def __init__(self, roles):

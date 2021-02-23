@@ -2,6 +2,7 @@ from ..entities.entity import Session
 from ..entities.user_roles import UserRole, UserRoleSchema
 from ..entities.role import Role, RoleSchema
 
+
 def get_role_by_name(role_name):
     session = Session()
     role_obj = session.query(Role).filter_by(name=role_name).first()
@@ -10,6 +11,7 @@ def get_role_by_name(role_name):
     session.close()
     return role.data
 
+
 def get_role_by_id(role_id):
     session = Session()
     role_obj = session.query(Role).filter_by(id=role_id).first()
@@ -17,6 +19,7 @@ def get_role_by_id(role_id):
     role = schema.dump(role_obj)
     session.close()
     return role.data
+
 
 def get_user_roles(user_id):
     session = Session()
@@ -28,6 +31,7 @@ def get_user_roles(user_id):
     session.close()
     return roles.data
 
+
 def grant_role(user_id, role_id):
     user_role = UserRole(user_id, role_id)
     session = Session()
@@ -35,12 +39,15 @@ def grant_role(user_id, role_id):
     session.commit()
     session.close()
 
+
 def revoke_role(user_id, role_id):
     session = Session()
-    user_role = session.query(UserRole).filter_by(user_id=user_id).filter_by(role_id=role_id).first()
+    user_role = session.query(UserRole).filter_by(
+        user_id=user_id).filter_by(role_id=role_id).first()
     session.delete(user_role)
     session.commit()
     session.close()
+
 
 def get_all_roles():
     session = Session()
@@ -49,6 +56,7 @@ def get_all_roles():
     role = schema.dump(role_obj)
     session.close()
     return role.data
+
 
 def create_new_role(name, desc):
     session = Session()
@@ -59,6 +67,7 @@ def create_new_role(name, desc):
     role = schema.dump(role_obj)
     session.close()
     return role.data
+
 
 def delete_existing_role(name):
     session = Session()

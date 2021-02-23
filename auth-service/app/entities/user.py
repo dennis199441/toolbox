@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, DateTime
 from .entity import Entity, Base
 from marshmallow import Schema, fields
 
-# Entity
+
 class User(Entity, Base):
     __tablename__ = 'users'
 
@@ -10,7 +10,7 @@ class User(Entity, Base):
     email = Column(String, unique=True)
     password = Column(String)
     is_active = Column(Integer)
-    verified_email =Column(Integer)
+    verified_email = Column(Integer)
     last_login = Column(DateTime)
 
     def __init__(self, username, email, password):
@@ -22,7 +22,7 @@ class User(Entity, Base):
         self.verified_email = 0
         self.last_login = None
 
-# Business Object
+
 class UserSchema(Schema):
     id = fields.Number()
     username = fields.Str()
