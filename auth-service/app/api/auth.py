@@ -11,7 +11,7 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     try:
-        result = authenticate(username, password)
+        result, status = authenticate(username, password)
     except:
         result["message"] = "Authentication error!"
         status = 500

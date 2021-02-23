@@ -11,16 +11,19 @@ def authenticate(username, password):
     user = get_user_info(username)
     if not user:
         result['messages'] = 'Username not found'
-        return result
+        status = 401
+        return result, status
 
     hash_pw = user['password']
     if not sha256.verify(password, hash_pw):
         result['messages'] = 'Authentication failed'
-        return result
+        status = 401
+        return result, status
 
     if user['is_active'] == 0:
         result['messages'] = 'Account is deactivated.'
-        return result
+        status = 401
+        return result, status
 
     _ = update_last_login(username)
     user_roles = get_user_roles(user['id'])
@@ -40,7 +43,7 @@ def authenticate(username, password):
     result['access_token'] = access_token
     result['refresh_token'] = refresh_token
 
-    return result
+    return result, status
 
 
 def refresh_token(current_user):

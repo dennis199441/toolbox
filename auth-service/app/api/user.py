@@ -12,7 +12,7 @@ user = Blueprint("user", __name__)
 @role_required(["Admin"])
 def activate(username):
     if not activate_user(username):
-        return jsonify(f"fail to activate user: {username}")
+        return jsonify(f"fail to activate user: {username}"), 500
     return jsonify(f"activated user: {username}")
 
 
@@ -21,7 +21,7 @@ def activate(username):
 @role_required(["Admin"])
 def deactivate(username):
     if not deactivate_user(username):
-        return jsonify(f"fail to deactivate user: {username}")
+        return jsonify(f"fail to deactivate user: {username}"), 500
     return jsonify(f"deactivated user: {username}")
 
 
@@ -41,7 +41,7 @@ def change_password():
     old_pw = request.form.get('oldPassword')
     new_pw = request.form.get('newPassword')
     if not change_user_password(username, old_pw, new_pw):
-        return jsonify(f"fail to change password for user:{username}")
+        return jsonify(f"fail to change password for user:{username}"), 500
     return jsonify(f"change password for user:{username} success")
 
 
@@ -52,7 +52,7 @@ def change_username():
     userId = current_user['id']
     username = request.form.get('username')
     if not update_username(userId, username):
-        return jsonify(f"fail to update username for user:{userId}")
+        return jsonify(f"fail to update username for user:{userId}"), 500
     return jsonify(f"update username for user:{userId} success")
 
 
