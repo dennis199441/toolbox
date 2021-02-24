@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { changeUsername } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,9 +37,15 @@ export default function UsernameModal() {
       setError(true);
       return false;
     }
-
-    console.log(username);
-    window.location.reload();
+    try {
+      const data = await changeUsername(username);
+      if (data) {
+        window.location.reload();
+      }
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
   }
 
   const handleChange = async () => {

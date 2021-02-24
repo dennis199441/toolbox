@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { changePassword } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,9 +45,15 @@ export default function PasswordModal() {
       return false;
     }
 
-    console.log(oldPassword);
-    console.log(newPassword);
-    window.location.reload();
+    try {
+      const data = await changePassword(oldPassword, newPassword);
+      if (data) {
+        window.location.reload();
+      }
+    } catch (e) {
+      console.error(e);
+      return false
+    }
   }
 
   const handleOldChange = async () => {

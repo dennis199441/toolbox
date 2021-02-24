@@ -2,6 +2,22 @@ import axios from 'axios';
 import { httpGet, httpPost, httpDelete } from './http';
 
 // Private API
+export const changeUsername = async (username) => {
+    let url = 'http://127.0.0.1:8080/user/change_username';
+    let form = new FormData();
+    form.append('username', username);
+    const data = await httpPost(url, form);
+    return data;
+}
+
+export const changePassword = async (oldPassword, newPassword) => {
+    let url = 'http://127.0.0.1:8080/user/change_password';
+    let form = new FormData();
+    form.append('oldPassword', oldPassword);
+    form.append('newPassword', newPassword);
+    const data = await httpPost(url, form);
+    return data;
+}
 
 export const activateUser = async (username) => {
     let url = 'http://127.0.0.1:8080/user/activate/' + username;
@@ -50,14 +66,14 @@ export const createRole = async (name, description) => {
     let form = new FormData();
     form.append('name', name);
     form.append('description', description);
-    return await httpPost(url ,form);
+    return await httpPost(url, form);
 }
 
 export const deleteRole = async (name) => {
     let url = 'http://127.0.0.1:8080/role/';
     let form = new FormData();
     form.append('name', name);
-    return await httpDelete(url ,form);
+    return await httpDelete(url, form);
 }
 
 export const grantRole = async (userId, roleId) => {
@@ -65,7 +81,7 @@ export const grantRole = async (userId, roleId) => {
     let form = new FormData();
     form.append('user_id', userId);
     form.append('role_id', roleId);
-    return await httpPost(url ,form);
+    return await httpPost(url, form);
 }
 
 export const revokeRole = async (userId, roleId) => {
@@ -73,7 +89,7 @@ export const revokeRole = async (userId, roleId) => {
     let form = new FormData();
     form.append('user_id', userId);
     form.append('role_id', roleId);
-    return await httpDelete(url ,form);
+    return await httpDelete(url, form);
 }
 
 // Public API
