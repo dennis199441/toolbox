@@ -97,6 +97,15 @@ def get_user_info(username):
     return user.data
 
 
+def get_user_info_by_email(email):
+    session = Session()
+    user_obj = session.query(User).filter_by(email=email).first()
+    schema = UserSchema(many=False)
+    user = schema.dump(user_obj)
+    session.close()
+    return user.data
+
+
 def get_all_users():
     session = Session()
     user_obj = session.query(User)
