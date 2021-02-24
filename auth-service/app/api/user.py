@@ -40,9 +40,13 @@ def change_password():
     username = current_user['username']
     old_pw = request.form.get('oldPassword')
     new_pw = request.form.get('newPassword')
+    result, status = {}, 200
     if not change_user_password(username, old_pw, new_pw):
-        return jsonify(f"fail to change password for user:{username}"), 500
-    return jsonify(f"change password for user:{username} success")
+        status = 500
+        result['message'] = f"fail to change password for user:{username}"
+        return jsonify(result), status
+    result['message'] = f"change password for user:{username} success"
+    return jsonify(result), status
 
 
 @user.route('/change_username', methods=['POST'])
@@ -51,9 +55,13 @@ def change_username():
     current_user = get_jwt_identity()
     userId = current_user['id']
     username = request.form.get('username')
+    result, status = {}, 200
     if not update_username(userId, username):
-        return jsonify(f"fail to update username for user:{userId}"), 500
-    return jsonify(f"update username for user:{userId} success")
+        status = 500
+        result['message'] = f"fail to update username for user:{userId}"
+        return jsonify(result), status
+    result['message'] = f"update username for user:{userId} success" 
+    return jsonify(result), status
 
 
 @user.route('/me', methods=['GET'])
