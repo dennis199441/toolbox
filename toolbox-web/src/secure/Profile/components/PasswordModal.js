@@ -49,6 +49,8 @@ export default function PasswordModal() {
       const data = await changePassword(oldPassword, newPassword);
       if (data) {
         window.location.reload();
+      } else {
+        window.alert("Failed to change password");
       }
     } catch (e) {
       console.error(e);
@@ -73,6 +75,7 @@ export default function PasswordModal() {
           margin="normal"
           required
           fullWidth
+          type="password"
           id="oldPassword"
           label="Old password"
           name="oldPassword"
@@ -87,6 +90,7 @@ export default function PasswordModal() {
           margin="normal"
           required
           fullWidth
+          type="password"
           id="newPassword"
           label="New password"
           name="newPassword"
