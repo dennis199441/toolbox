@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   table: {
-    minWidth: 650,
+    width: 1200
   },
 }));
 

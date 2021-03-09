@@ -108,7 +108,7 @@ export default function UserTable() {
   return (
     <React.Fragment>
       <Title>Users</Title>
-      <div style={{ height: 700, width: '100%' }}>
+      <div style={{ height: 700, width: 1245 }}>
         <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection onSelectionChange={onSelectionChange} />
       </div>
       <div className={classes.seeMore}>

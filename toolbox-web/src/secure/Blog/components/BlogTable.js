@@ -47,7 +47,7 @@ export default function BlogTable() {
   return (
     <React.Fragment>
       <Title>Blog</Title>
-      <div style={{ height: 700, width: '100%' }}>
+      <div style={{ height: 700, width: 1245 }}>
         <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection />
       </div>
       <div className={classes.seeMore}>

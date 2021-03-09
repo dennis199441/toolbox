@@ -36,9 +36,9 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+    // [theme.breakpoints.up('sm')]: {
+    //   display: 'none',
+    // },
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -98,7 +98,6 @@ export default function NavBar() {
               <MenuIcon />
             </IconButton>
             : null}
-
           <NavHomeBtn />
         </Toolbar>
       </AppBar>
@@ -106,7 +105,7 @@ export default function NavBar() {
         isLogin() ?
           <nav className={classes.drawer}>
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-            <Hidden smUp implementation="css">
+            <Hidden implementation="css">
               <Drawer
                 variant="temporary"
                 anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -122,18 +121,6 @@ export default function NavBar() {
                 <IconButton onClick={handleDrawerToggle} className={classes.closeMenuButton}>
                   <CloseIcon />
                 </IconButton>
-                {drawer}
-              </Drawer>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-              <Drawer
-                className={classes.drawer}
-                variant="permanent"
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                <div className={classes.toolbar} />
                 {drawer}
               </Drawer>
             </Hidden>
