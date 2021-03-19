@@ -18,7 +18,7 @@ function Copyright() {
             {'Copyright © '}
             <Link color="inherit" href="https://codingdaily.dev">
                 CodingDaily.dev
-    </Link>{' '}
+            </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
