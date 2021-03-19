@@ -132,9 +132,5 @@ export const logout = () => {
 }
 
 export const isLogin = () => {
-    if (localStorage.getItem("access_token") && localStorage.getItem("refresh_token")) {
-        return true;
-    }
-
-    return false;
+    return (localStorage.getItem("access_token") && localStorage.getItem("refresh_token"));
 }
