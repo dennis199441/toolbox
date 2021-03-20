@@ -11,7 +11,7 @@ import { getUserDetails } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    width: 1200,
   },
 });
 

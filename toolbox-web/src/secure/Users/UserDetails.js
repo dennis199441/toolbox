@@ -3,27 +3,13 @@ import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import UserDetailsForm from './components/UserDetailsForm';
 import UserRolesForm from './components/UserRolesForm';
 import NavBar from '../../common/NavBar';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://codingdaily.dev">
-                CodingDaily.dev
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Copyright from '../../common/Copyright';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
-        flexGrow: 1,
+        flexGrow: 0,
         height: '100vh',
         overflow: 'auto',
     },
