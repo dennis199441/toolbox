@@ -2,32 +2,30 @@ var db = require('../../database/dbconnection');
 var log = require('log4js').getLogger("BlogRepository");
 
 const BlogRepository = {
-    query: async() => {
-        log.debug("Query");
-        let data = null;
+    queryPagination: async (page, size) => {
+        let blogs = null;
+        let hasNext = false;
         try {
-            data = await db.query("SELECT * FROM blog");
+            let offset = page * size;
+            let nextPage = offset + 1;
+            blogs = await db.query(`SELECT * FROM blog ORDER BY creationTime DESC LIMIT ${size} OFFSET ${offset}`);
+            let next = await db.query(`SELECT count(id) FROM blog ORDER BY creationTime DESC LIMIT ${size} OFFSET ${nextPage}`);
+            hasNext = (next > 0);
         } catch (err) {
-            log.debug("error occur");
-            log.debug(err)
             throw new Error(err);
         }
-        return data;
+        return { blogs, hasNext };
     },
-    queryById: async(id) => {
-        log.debug("Query by id");
+    queryById: async (id) => {
         let data = null;
         try {
             data = await db.query("SELECT * FROM blog where id = ?", id);
         } catch (err) {
-            log.debug("error occur");
-            log.debug(err)
             throw new Error(err);
         }
         return data;
     },
-    create: async(blog) => {
-        log.debug("Create");
+    create: async (blog) => {
         let data = null;
         try {
             data = await db.query("INSERT INTO blog SET ?", blog);
@@ -38,26 +36,20 @@ const BlogRepository = {
         }
         return data;
     },
-    update: async(id, blog) => {
-        log.debug("Update");
+    update: async (id, blog) => {
         let data = null;
         try {
             data = await db.query("UPDATE blog SET ? WHERE id = ? ", [blog, id]);
         } catch (err) {
-            log.debug("error occur");
-            log.debug(err)
             throw new Error(err);
         }
         return data;
     },
-    delete: async(id) => {
-        log.debug("Delete");
+    delete: async (id) => {
         let data = null;
         try {
             data = await db.query("DELETE from blog WHERE id = ? ", [id]);
         } catch (err) {
-            log.debug("error occur");
-            log.debug(err)
             throw new Error(err);
         }
         return data;

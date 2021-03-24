@@ -8,10 +8,10 @@ const { Message } = require("../model/messageClass");
 const blogService = require('../service/blog.service');
 
 router.get("/blogs", async (req, res) => {
-    let page = req.query.page;
-    let size = req.query.size;
+    let page = req.query.page || 1;
+    let size = req.query.size || 10;
     try {
-        let data = await blogService.query(page, size);
+        let data = await blogService.queryPagination(page, size);
         let message = new Message(200, "Ok. query blog success", data);
         res.send(message);
     } catch (e) {
@@ -91,6 +91,20 @@ router.put("/blog", async (req, res) => {
 
 router.delete("/blog/:id", async (req, res) => {
     let id = req.params.id;
+    if (!id) {
+        const message = "blog id not found";
+        log.warn("[DELETE] /api/v1/blog", message);
+        res.status(422).send(message);
+    } else {
+        try {
+            let data = await blogService.delete(id);
+            let message = new Message(200, "Ok. delete blog by id success", data);
+            res.send(message);
+        } catch (e) {
+            message = new Message(500, "delete blog failed", e.message);
+            res.status(500).send(message);
+        }
+    }
 })
 
 module.exports = router;

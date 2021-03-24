@@ -5,10 +5,10 @@ var uuid = require('uuid');
 const blogRepository = require('../repository/blog.repository');
 
 const BlogService = {
-    query: async (page, size) => {
+    queryPagination: async (page, size) => {
         try {
-            log.debug("Query blog");
-            let data = await blogRepository.query();
+            log.debug("queryPagination");
+            let data = await blogRepository.queryPagination(page, size);
             return data;
         } catch (e) {
             log.error(e);
@@ -17,7 +17,7 @@ const BlogService = {
     },
     queryById: async (id) => {
         try {
-            log.debug("Query blog by id");
+            log.debug("queryById");
             let data = await blogRepository.queryById(id);
             return data;
         } catch (e) {
