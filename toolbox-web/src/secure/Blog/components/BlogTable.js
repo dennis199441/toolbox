@@ -17,7 +17,7 @@ const columns = [
   {
     field: 'title',
     headerName: 'Title',
-    width: 500,
+    width: 370,
     renderCell: (params) => {
       let url = "/secure/blog/" + params.row.id;
       return <Link to={url}>{params.value}</Link>
@@ -34,13 +34,13 @@ const columns = [
     field: 'createAt',
     headerName: 'Create At',
     sortable: true,
-    width: 135,
+    width: 200,
   },
   {
     field: 'updateAt',
     headerName: 'Update At',
     sortable: true,
-    width: 135,
+    width: 200,
   },
 ];
 
