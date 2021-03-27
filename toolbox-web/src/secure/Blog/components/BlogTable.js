@@ -106,7 +106,7 @@ export default function BlogTable() {
   return (
     <React.Fragment>
       <Title>Blog</Title>
-      <div style={{ height: 700, width: 1200 }}>
+      <div style={{ height: 650, width: 1200 }}>
         <DataGrid rows={rows} columns={columns} pageSize={10} checkboxSelection onSelectionChange={onSelectionChange} />
       </div>
       <div className={classes.seeMore}>
