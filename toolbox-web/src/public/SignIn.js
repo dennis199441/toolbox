@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { login, isLogin } from '../utils';
+import { login, isLogin } from '../utils/auth';
 import Copyright from '../common/Copyright';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +40,7 @@ export default function SignIn() {
   const classes = useStyles();
   let history = useHistory();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let username = e.target[0].value;
     let password = e.target[2].value;

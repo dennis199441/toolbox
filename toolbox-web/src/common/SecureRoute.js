@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { isLogin } from '../utils';
+import { isLogin } from '../utils/auth';
 
-const SecureRoute = ({component: Component, ...rest}) => {
+const SecureRoute = ({ component: Component, ...rest }) => {
     return (
 
         // Show the component only when the user is logged in
@@ -10,7 +10,7 @@ const SecureRoute = ({component: Component, ...rest}) => {
         <Route {...rest} render={props => (
             isLogin() ?
                 <Component {...props} />
-            : <Redirect to="/signin" />
+                : <Redirect to="/signin" />
         )} />
     );
 };

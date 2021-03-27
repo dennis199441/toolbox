@@ -18,7 +18,7 @@ import NavProfileBtn from './NavProfileBtn';
 import NavHomeBtn from './NavHomeBtn';
 import NavUsersBtn from './NavUsersBtn';
 import NavRolesBtn from './NavRolesBtn';
-import { isLogin } from '../utils';
+import { isLogin } from '../utils/auth';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({

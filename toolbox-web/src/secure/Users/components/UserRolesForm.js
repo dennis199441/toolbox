@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import { getUserDetails, getUserRoles, getRoleByName, grantRole, revokeRole } from '../../../utils';
+import { getUserDetails, getUserRoles, getRoleByName, grantRole, revokeRole } from '../../../utils/auth';
 
 const useStyles = makeStyles({
   table: {

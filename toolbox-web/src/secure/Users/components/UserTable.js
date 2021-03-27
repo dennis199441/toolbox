@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
 import Button from '@material-ui/core/Button';
 import Title from './Title';
-import { getUsers, activateUser, deactivateUser } from '../../../utils';
+import { getUsers, activateUser, deactivateUser } from '../../../utils/auth';
 
 // Generate Order Data
 function createData(id, name, email, activate, createAt, lastLogin) {

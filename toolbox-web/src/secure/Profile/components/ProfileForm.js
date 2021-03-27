@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import { getCurrentUser } from '../../../utils';
+import { getCurrentUser } from '../../../utils/auth';
 import UsernameModal from './UsernameModal';
 import PasswordModel from './PasswordModal';
 
@@ -106,7 +106,7 @@ export default function ProfileForm() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            {modal === "username" ? <UsernameModal/> : <PasswordModel/>}
+            {modal === "username" ? <UsernameModal /> : <PasswordModel />}
           </div>
         </Fade>
       </Modal>

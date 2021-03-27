@@ -1,5 +1,5 @@
 import React from 'react';
-import { isLogin } from '../utils';
+import { isLogin } from '../utils/auth';
 import { useHistory } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';

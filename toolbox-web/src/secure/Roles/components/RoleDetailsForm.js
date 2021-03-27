@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Title from './Title';
-import { createRole } from '../../../utils';
+import { createRole } from '../../../utils/auth';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RoleDetailsForm() {
-  
+
   const classes = useStyles();
   const history = useHistory();
 
