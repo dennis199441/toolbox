@@ -51,6 +51,31 @@ export const httpPost = async (url, data) => {
     return null;
 }
 
+export const httpPut = async (url, data) => {
+    const access_token = 'Bearer ' + localStorage.getItem("access_token");
+    let i = 0;
+    while (i < MAX_RETRY) {
+        try {
+            let response = await axios({
+                method: 'put',
+                url: url,
+                headers: { 'Authorization': access_token },
+                data: data
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            }
+        } catch (e) {
+            await refreshToken();
+        }
+
+        i++;
+    }
+
+    return null;
+}
+
 export const httpDelete = async (url, data) => {
     const access_token = 'Bearer ' + localStorage.getItem("access_token");
     let i = 0;
@@ -69,7 +94,7 @@ export const httpDelete = async (url, data) => {
         } catch (e) {
             await refreshToken();
         }
-        
+
         i++;
     }
 

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import jwt from 'jsonwebtoken';
+import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import Title from './Title';
+import { createBlog, updateBlog, queryBlogById } from '../../../utils/blog';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,11 +34,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BlogForm(props) {
 
+  const { id } = useParams();
   const history = useHistory();
+  const [title, setTitle] = useState();
   const [error, setError] = useState(false);
   const classes = useStyles();
   const [htmlContent, setHtmlContent] = useState();
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  useEffect(() => {
+    async function fetchData() {
+      let res = await queryBlogById(id);
+      if (res.data && res.data.length === 1) {
+        let blog = res.data[0];
+        setTitle(blog.title);
+        setHtmlContent(blog.content);
+        const blocksFromHtml = htmlToDraft(blog.content);
+        const { contentBlocks, entityMap } = blocksFromHtml;
+        const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+        setEditorState(EditorState.createWithContent(contentState));
+      }
+    }
+
+    if (id && id !== "create") {
+      fetchData();
+    }
+  }, [id]);
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -46,20 +68,38 @@ export default function BlogForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(htmlContent);
-    let title = e.target[0].value;
     if (!title) {
       setError(true);
       return false;
     }
+
+    let access_token = localStorage.getItem('access_token');
+    let userInfo = jwt.decode(access_token);
+    let author = userInfo.identity.username;
+    if (id && id !== "create") {
+      let published = false;
+      let data = await updateBlog({ id, title, author, htmlContent, published });
+      if (data.code === 200) {
+        window.alert("Update blog successfully!");
+        history.replace('/secure/blog');
+      }
+    } else {
+      let data = await createBlog(title, author, htmlContent, false);
+      if (data.code === 200) {
+        window.alert("Create blog successfully!");
+        history.replace('/secure/blog');
+      }
+    }
+
     return false;
   }
 
   const handleCancel = () => {
     history.replace('/secure/blog');
   }
-  
-  const handleTitleChange = async () => {
+
+  const handleTitleChange = async (e) => {
+    setTitle(e.target.value)
     setError(false);
   }
 
@@ -79,6 +119,7 @@ export default function BlogForm(props) {
           autoFocus
           error={error}
           helperText="Please input title."
+          value={title}
           onChange={handleTitleChange}
         />
         <div className={classes.editor}>

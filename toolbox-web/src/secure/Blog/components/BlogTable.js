@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
 import Title from './Title';
+import { queryBlogs, updateBlog, deleteBlog } from '../../../utils/blog';
 
 // Generate Order Data
-function createData(id, title, author, publishedAt, createAt, updateAt) {
-  return { id, title, author, publishedAt, createAt, updateAt };
+function createData(id, title, author, published, createAt, updateAt) {
+  published = Boolean(published);
+  return { id, title, author, published, createAt, updateAt };
 }
 
 const columns = [
@@ -23,8 +25,8 @@ const columns = [
   },
   { field: 'author', headerName: 'Author', width: 200 },
   {
-    field: 'publishedAt',
-    headerName: 'Published At',
+    field: 'published',
+    headerName: 'Published',
     sortable: true,
     width: 135,
   },
@@ -52,11 +54,19 @@ export default function BlogTable() {
 
   const history = useHistory();
   const classes = useStyles();
-  const [rows, setRows] = useState([
-    createData(0, 'Title 1', 'dennis', '17 Mar, 2020', '16 Mar, 2020', '8 Feb, 2021'),
-    createData(1, 'Title 2', 'dennis', '17 Mar, 2020', '16 Sep, 2020', '8 Feb, 2021')
-  ]);
+  const [rows, setRows] = useState([]);
   const [selected, setSelected] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      let res = await queryBlogs(1, 10);
+      let newRows = res.data.blogs.map(blog => {
+        return createData(blog.id, blog.title, blog.author, blog.published, blog.creationTime, blog.updateTime);
+      })
+      setRows(newRows);
+    }
+    fetchData();
+  }, []);
 
   const onSelectionChange = (newSelection) => {
     setSelected(newSelection.rowIds);
@@ -66,16 +76,31 @@ export default function BlogTable() {
     history.push('/secure/blog/create');
   }
 
-  const handleDelete = () => {
-
+  const handleDelete = async () => {
+    if (window.confirm(`Are you sure you want to delete the selected ${selected.length} blog(s)?`)) {
+      await Promise.all(selected.map(async (id) => {
+        await deleteBlog(id);
+      }));
+      window.location.reload();
+    }
   }
 
-  const handlePublish = () => {
-
+  const handlePublish = async () => {
+    if (window.confirm(`Are you sure you want to publish the selected ${selected.length} blog(s)?`)) {
+      await Promise.all(selected.map(async (id) => {
+        await updateBlog({ id: id, published: true });
+      }));
+      window.location.reload();
+    }
   }
 
-  const handleUnpublish = () => {
-
+  const handleUnpublish = async () => {
+    if (window.confirm(`Are you sure you want to unpublish the selected ${selected.length} blog(s)?`)) {
+      await Promise.all(selected.map(async (id) => {
+        await updateBlog({ id: id, published: false });
+      }));
+      window.location.reload();
+    }
   }
 
   return (
