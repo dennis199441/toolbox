@@ -79,6 +79,7 @@ router.put("/blog", async (req, res) => {
     } else {
         try {
             let blog = req.body;
+            let id = blog.id;
             let data = await blogService.update(id, blog);
             let message = new Message(200, "Ok. create blog success", data);
             res.send(message);
