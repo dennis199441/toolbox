@@ -78,7 +78,7 @@ export default function BlogForm(props) {
     let author = userInfo.identity.username;
     if (id && id !== "create") {
       let published = false;
-      let data = await updateBlog({ id, title, author, htmlContent, published });
+      let data = await updateBlog({ id, title, author, content: htmlContent, published });
       if (data.code === 200) {
         window.alert("Update blog successfully!");
         history.replace('/secure/blog');
