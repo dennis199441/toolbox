@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import './App.css';
 import { SecureRoute, PublicRoute, NotFound } from './common';
-import { About, Home, SignIn, SignUp } from './public';
+import { About, Home, PublicBlog, SignIn, SignUp } from './public';
 import { Profile, Dashboard, Users, UserDetails, Blog, BlogDetails, Roles, RoleDetails } from './secure';
 
 const theme = createMuiTheme({
@@ -25,6 +25,7 @@ function App() {
           <Switch>
             <PublicRoute restricted={false} component={Home} path="/" exact />
             <PublicRoute restricted={false} component={About} path="/about" exact />
+            <PublicRoute restricted={false} component={PublicBlog} path="/blog" exact />
             <PublicRoute restricted={true} component={SignIn} path="/signin" exact />
             <PublicRoute restricted={true} component={SignUp} path="/signup" exact />
             <SecureRoute component={Dashboard} path="/secure/dashboard" exact />

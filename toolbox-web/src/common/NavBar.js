@@ -19,6 +19,8 @@ import NavHomeBtn from './NavHomeBtn';
 import NavUsersBtn from './NavUsersBtn';
 import NavRolesBtn from './NavRolesBtn';
 import { isLogin } from '../utils/auth';
+import MenuAboutBtn from '../public/components/MenuAboutBtn';
+import MenuBlogBtn from '../public/components/MenuBlogBtn';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -52,6 +54,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: 'auto',
     marginLeft: 0,
   },
+  pageButtons: {
+    marginLeft: 'auto',
+  }
 }));
 
 export default function NavBar() {
@@ -99,6 +104,10 @@ export default function NavBar() {
             </IconButton>
             : null}
           <NavHomeBtn />
+          <div className={classes.pageButtons}>
+            <MenuAboutBtn />
+            <MenuBlogBtn />
+          </div>
         </Toolbar>
       </AppBar>
       {

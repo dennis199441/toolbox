@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { httpGet, httpPost, httpPut, httpDelete } from './http';
 
 // Private API
