@@ -1,0 +1,79 @@
+version: "3.1"
+
+networks:
+    net:
+
+services:
+    auth_db:
+        image: mysql:5.7
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+            - ./auth-service/script/create_table.sql:/data/application/init.sql
+            - ~/datadrive/toolbox/user/mysql/:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: toolbox_user
+        networks:
+            - net
+
+    auth:
+        build:
+            dockerfile: Dockerfile
+            context: ./auth-service
+        image: toolbox-user-service:latest
+        restart: always
+        volumes:
+            - ~/datadrive/toolbox/user/application/log/:/usr/src/app/log
+        environment:
+            PORT: 8080
+            USER_SERVICE_SQL_INSTANCE: auth_db
+            USER_SERVICE_DB_USER: root
+            USER_SERVICE_DB_PASSWORD: root
+            USER_SERVICE_DB_NAME: toolbox_user
+            DB_PORT: 3306
+            JWT_SECRET_STRING: try-to-guess-the-secret
+            WAIT_HOSTS: auth_db:3306
+        ports:
+            - 8080:8080
+        networks:
+            - net
+        depends_on:
+            - auth_db
+
+    blog_db:
+        image: mysql:5.7
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+            - ./blog-service/script/create_table.sql:/data/application/init.sql
+            - ~/datadrive/toolbox/blog/mysql/:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: abc123
+            MYSQL_DATABASE: toolbox_blog
+        networks:
+            - net
+
+    blog:
+        build:
+            dockerfile: Dockerfile
+            context: ./blog-service
+        image: toolbox-blog-service:latest
+        restart: always
+        volumes:
+            - ~/datadrive/toolbox/blog/application/log/:/usr/src/app/log
+        environment:
+            PORT: 8081
+            DB_HOST: blog_db
+            DB_USER: root
+            DB_PASSWORD: abc123
+            DB_DATABASE: toolbox_blog
+            DB_PORT: 3306
+            JWT_SECRET_STRING: try-to-guess-the-secret
+            WAIT_HOSTS: blog_db:3306
+        ports:
+            - 8081:8081
+        networks:
+            - net
+        depends_on:
+            - blog_db
