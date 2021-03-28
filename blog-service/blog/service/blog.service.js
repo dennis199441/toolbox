@@ -6,6 +6,9 @@ const blogRepository = require('../repository/blog.repository');
 
 const BlogService = {
     queryPagination: async (page, size) => {
+        if (page <= 0 || size <= 0) {
+            throw new Error("Invalid page number or size")
+        }
         try {
             log.debug("queryPagination");
             let data = await blogRepository.queryPagination(page, size);

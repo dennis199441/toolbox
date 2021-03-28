@@ -7,10 +7,10 @@ const BlogRepository = {
         let hasNext = false;
         try {
             let offset = (page - 1) * size;
-            let nextPage = offset + 1;
+            let nextPage = page * size;
             blogs = await db.query(`SELECT * FROM blog ORDER BY creationTime DESC LIMIT ${size} OFFSET ${offset}`);
-            let next = await db.query(`SELECT count(id) FROM blog ORDER BY creationTime DESC LIMIT ${size} OFFSET ${nextPage}`);
-            hasNext = (next > 0);
+            let next = await db.query(`SELECT id FROM blog ORDER BY creationTime DESC LIMIT ${size} OFFSET ${nextPage}`);
+            hasNext = (next.length > 0);
         } catch (err) {
             throw new Error(err);
         }
