@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.8-alpine3.12
 
 RUN mkdir -p /usr/src/app
 
